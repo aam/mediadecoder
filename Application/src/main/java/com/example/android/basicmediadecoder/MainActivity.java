@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
                 + getPackageName() + "/"
                 + R.raw.vid_bigbuckbunny);
 
-        MediaExtractor extractor = new MediaExtractor();
+        final MediaExtractor extractor = new MediaExtractor();
         MediaCodec codec = null;
 
         extractor.setDataSource(this, videoUri, null);
@@ -126,9 +126,17 @@ public class MainActivity extends Activity {
                     @Override
                     public void onInputBufferAvailable(MediaCodec mc, int inputBufferId) {
                         ByteBuffer inputBuffer = videoCodec.getInputBuffer(inputBufferId);
-                        // fill inputBuffer with valid data
-//                …
-//                        videoCodec.queueInputBuffer(inputBufferId, 0, size, presentationTimeUs, flags);
+                        while(true) {
+                            int size = extractor.readSampleData(inputBuffer, 0);
+                            long presentationTimeUs = extractor.getSampleTime();
+                            if (size >= 0) {
+                                videoCodec.queueInputBuffer(inputBufferId, 0, size, presentationTimeUs, extractor.getSampleFlags());
+                            }
+                            if (!extractor.advance()) {
+                                videoCodec.queueInputBuffer(inputBufferId, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM);
+                                return;
+                            }
+                        }
                     }
 
                     @Override
@@ -138,7 +146,7 @@ public class MainActivity extends Activity {
                         // bufferFormat is equivalent to mOutputFormat
                         // outputBuffer is ready to be processed or rendered.
 //                        …
-//                        videoCodec.releaseOutputBuffer(outputBufferId, …);
+                        videoCodec.releaseOutputBuffer(outputBufferId,  …);
                     }
 
                     @Override
