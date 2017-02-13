@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Application/Application.iml" filepath="$PROJECT_DIR$/Application/Application.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BasicMediaDecoder.iml" filepath="$PROJECT_DIR$/BasicMediaDecoder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mediadecoder.iml" filepath="$PROJECT_DIR$/mediadecoder.iml" />
     </modules>
   </component>
 </project>

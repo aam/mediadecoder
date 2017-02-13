@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
                         // bufferFormat is equivalent to mOutputFormat
                         // outputBuffer is ready to be processed or rendered.
 //                        …
-                        videoCodec.releaseOutputBuffer(outputBufferId,  …);
+                        //videoCodec.releaseOutputBuffer(outputBufferId,  …);
                     }
 
                     @Override
